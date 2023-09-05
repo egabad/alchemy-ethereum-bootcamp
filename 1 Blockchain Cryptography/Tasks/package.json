@@ -1,0 +1,19 @@
+{
+  "name": "1-blockchain-cryptography",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "mocha '**/*/*.test.js'"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "chai": "^4.3.8",
+    "mocha": "^10.2.0"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "ethereum-cryptography": "^1.2.0"
+  }
+}
