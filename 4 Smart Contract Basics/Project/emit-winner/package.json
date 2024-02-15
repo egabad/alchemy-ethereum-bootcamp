@@ -1,0 +1,22 @@
+{
+  "name": "emit-winner",
+  "version": "1.0.0",
+  "description": "Ready to be a winner?",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "compile": "npx hardhat compile",
+    "deploy:local": "npx hardhat run scripts/deploy.ts --network local",
+    "deploy": "npx hardhat run scripts/deploy.ts --network goerli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "hardhat": "^2.19.5"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^16.4.4"
+  }
+}
