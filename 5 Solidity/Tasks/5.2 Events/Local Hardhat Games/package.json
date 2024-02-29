@@ -1,0 +1,20 @@
+{
+  "name": "local-hardhat-games",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "node": "npx hardhat node",
+    "deploy": "npx hardhat run scripts/deploy.js",
+    "win": "npx hardhat run scripts/win.js"
+  },
+  "dependencies": {
+    "hardhat": "^2.12.4"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0"
+  }
+}
