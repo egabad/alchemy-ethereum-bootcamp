@@ -1,0 +1,73 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+contract MultiSig {
+  address[] public owners;
+  uint256 public required;
+  uint256 public transactionCount;
+  struct Transaction {
+    address destination;
+    uint256 value;
+    bool executed;
+    bytes data;
+  }
+  mapping(uint256 => Transaction) public transactions;
+  mapping(uint256 => mapping(address => bool)) public confirmations;
+
+  constructor(address[] memory _owners, uint256 _required) {
+    require(_owners.length > 0);
+    require(_required > 0);
+    require(_required <= _owners.length);
+    owners = _owners;
+    required = _required;
+  }
+
+  function addTransaction(address _dest, uint256 _value, bytes memory _data) internal returns(uint256 id) {
+    id = transactionCount;
+    transactions[id] = Transaction(_dest, _value, false, _data);
+    transactionCount++;
+  }
+
+  function isOwner(address _account) private view returns (bool) {
+    for (uint256 i = 0; i < owners.length; i ++) {
+      if (_account == owners[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function isConfirmed(uint256 _id) public view returns (bool) {
+    return getConfirmationsCount(_id) >= required;
+  }
+
+  function confirmTransaction(uint256 _id) public {
+    require(isOwner(msg.sender));
+    confirmations[_id][msg.sender] = true;
+    if (isConfirmed(_id)) {
+      executeTransaction(_id);
+    }
+  }
+
+  function getConfirmationsCount(uint256 _id) public view returns (uint256 confirmed) {
+    for (uint256 i = 0; i < owners.length; i++) {
+      if (confirmations[_id][owners[i]] == true) {
+        confirmed++;
+      }
+    }
+  }
+
+  function submitTransaction(address _dest, uint256 _value, bytes memory _data) public {
+    uint256 id = addTransaction(_dest, _value, _data);
+    confirmTransaction(id);
+  }
+
+  function executeTransaction(uint256 _id) public {
+    require(isConfirmed(_id));
+    (bool sent, ) = transactions[_id].destination.call{ value: transactions[_id].value }(transactions[_id].data);
+    require(sent);
+    transactions[_id].executed = true;
+  }
+
+  receive() external payable {}
+}
