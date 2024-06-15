@@ -1,0 +1,25 @@
+{
+  "name": "upgradeable-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "node": "npx hardhat node",
+    "deploy": "npx hardhat run scripts/deployProxy.js --network sepolia",
+    "verify": "npx hardhat verify --network sepolia $LOGIC_ADDRESS",
+    "upgrade": "npx hardhat run scripts/upgradeProxy.js --network sepolia"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.5"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts-upgradeable": "^5.0.2",
+    "@openzeppelin/hardhat-upgrades": "^3.1.1",
+    "dotenv": "^16.4.5"
+  }
+}

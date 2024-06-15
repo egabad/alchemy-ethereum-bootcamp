@@ -1,0 +1,1 @@
+Use `npx hardhat test` to test proxy contracts.
